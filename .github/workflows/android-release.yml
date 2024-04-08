@@ -30,3 +30,14 @@ jobs:
 
       - name: Start release build
         run: flutter build apk
+
+      - name: Save APK
+        run: mkdir -p apk && cp build/app/outputs/flutter-apk/app-release.apk apk/
+      # This command creates a directory named "apk" and copies the generated APK to that directory.
+
+      - name: Commit APK
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add apk/
+          git commit -m "Add APK"
